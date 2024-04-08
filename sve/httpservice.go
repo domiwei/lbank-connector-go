@@ -14,7 +14,7 @@ import (
 
 	"github.com/tidwall/gjson"
 
-	"lbank_connector_go/pkg"
+	"lbank-connector-go/pkg"
 )
 
 type HttpService struct {

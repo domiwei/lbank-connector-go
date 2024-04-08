@@ -1,4 +1,4 @@
-package lbank_connector_go
+package lbank-connector-go
 
 const Version = "0.1.0"
 

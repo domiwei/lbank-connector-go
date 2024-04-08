@@ -3,7 +3,7 @@ package sve
 import (
 	"go.uber.org/zap"
 
-	"lbank_connector_go/pkg"
+	"lbank-connector-go/pkg"
 )
 
 type WsClient struct {

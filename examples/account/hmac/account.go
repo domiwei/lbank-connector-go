@@ -1,13 +1,13 @@
 package main
 
 import (
-	"lbank_connector_go/sve"
+	"lbank-connector-go/sve"
 )
 
 // rsa
 const (
-	apiKey    = "44b9cdf2-6c66-4f57-a551-a80dbc42542d"
-	secretKey = "71CE6CF6E03A51C61AA6F94A453443E8"
+	apiKey    = ""
+	secretKey = ""
 )
 
 var client = sve.NewClient(apiKey, secretKey)

@@ -1,6 +1,6 @@
 package main
 
-import "lbank_connector_go/sve"
+import "lbank-connector-go/sve"
 
 var client = sve.NewWsClient("", "")
 

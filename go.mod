@@ -1,4 +1,4 @@
-module lbank_connector_go
+module lbank-connector-go
 
 go 1.20
 

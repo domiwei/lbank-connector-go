@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"lbank_connector_go/pkg"
+	"lbank-connector-go/pkg"
 )
 
 type WsService struct {
