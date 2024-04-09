@@ -1,4 +1,4 @@
-module lbank-connector-go
+module github.com/LBank-exchange/lbank-connector-go
 
 go 1.20
 
