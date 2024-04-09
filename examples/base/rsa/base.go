@@ -1,9 +1,5 @@
 package main
 
-import (
-	"lbank-connector-go/sve"
-)
-
 const (
 	apiKey    = ""
 	secretKey = ""

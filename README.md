@@ -35,7 +35,7 @@ Create an  example
 package main
 
 import (
-	"lbank-connector-go/sve"
+	"github.com/LBank-exchange/lbank-connector-go"
 )
 
 // rsa

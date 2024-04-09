@@ -1,7 +1,5 @@
 package main
 
-import "lbank-connector-go/sve"
-
 var client = sve.NewWsClient("", "")
 
 func TestKbar() {

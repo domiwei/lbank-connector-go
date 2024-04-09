@@ -1,8 +1,6 @@
 package main
 
-import (
-	"lbank-connector-go/sve"
-)
+import "github.com/LBank-exchange/lbank-connector-go/sve"
 
 // rsa
 const (
