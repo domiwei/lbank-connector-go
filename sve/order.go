@@ -5,6 +5,10 @@ type OrderService struct {
 	hs *HttpService
 }
 
+func (o *OrderService) HttpService() *HttpService {
+	return o.hs
+}
+
 func (o *OrderService) CreateOrder(data map[string]string) {
 	url := o.c.Host + PathCreateOrder
 	params := o.hs.BuildSignBody(data)

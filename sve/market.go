@@ -5,6 +5,10 @@ type MarketService struct {
 	hs *HttpService
 }
 
+func (m *MarketService) HttpService() *HttpService {
+	return m.hs
+}
+
 func (m *MarketService) Depth(data map[string]string) {
 	url := m.c.Host + PathDepth
 	params := m.hs.BuildSignBody(data)

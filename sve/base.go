@@ -5,6 +5,10 @@ type BaseService struct {
 	hs *HttpService
 }
 
+func (b *BaseService) HttpService() *HttpService {
+	return b.hs
+}
+
 func (b *BaseService) CurrencyPairs(data map[string]string) {
 	url := b.c.Host + PathCurrencyPairs
 	params := b.hs.BuildSignBody(data)

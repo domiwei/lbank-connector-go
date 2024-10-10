@@ -5,6 +5,10 @@ type SpotService struct {
 	hs *HttpService
 }
 
+func (s *SpotService) HttpService() *HttpService {
+	return s.hs
+}
+
 func (s *SpotService) CreateOrder(data map[string]string) {
 	url := s.c.Host + PathSupplementCreatOrder
 	params := s.hs.BuildSignBody(data)

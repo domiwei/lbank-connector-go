@@ -5,6 +5,10 @@ type AccountService struct {
 	hs *HttpService
 }
 
+func (a *AccountService) HttpService() *HttpService {
+	return a.hs
+}
+
 func (a *AccountService) UserInfo(data map[string]string) {
 	url := a.c.Host + PathUserInfo
 	params := a.hs.BuildSignBody(data)

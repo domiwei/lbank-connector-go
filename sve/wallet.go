@@ -5,6 +5,10 @@ type WalletService struct {
 	hs *HttpService
 }
 
+func (w *WalletService) HttpService() *HttpService {
+	return w.hs
+}
+
 func (w *WalletService) SupplementSystemStatus(data map[string]string) {
 	url := w.c.Host + PathSupplementSystemStatus
 	params := w.hs.BuildSignBody(data)
