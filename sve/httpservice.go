@@ -14,21 +14,22 @@ import (
 
 	"github.com/tidwall/gjson"
 
-	"lbank-connector-go/pkg"
+	"github.com/domiwei/lbank-connector-go/pkg"
 )
 
 type HttpService struct {
-	c         *Client
-	ReqObj    *http.Request
-	RespObj   *http.Response
-	Body      string
-	CostTime  int64
-	Method    string
-	Headers   map[string]string
-	Text      string
-	Content   []byte
-	IsEchoReq bool
-	isDebug   bool
+	c          *Client
+	ReqObj     *http.Request
+	RespObj    *http.Response
+	Body       string
+	CostTime   int64
+	Method     string
+	Headers    map[string]string
+	Text       string
+	Content    []byte
+	IsEchoReq  bool
+	isDebug    bool
+	StatusCode int
 
 	Error error
 
@@ -124,6 +125,7 @@ func (hs *HttpService) DoHttpRequest(method, url, body string, kwargs ...KwArgs)
 	startTime := time.Now()
 	respObj, err := client.Do(hs.ReqObj)
 	hs.RespObj = respObj
+	hs.StatusCode = respObj.StatusCode
 	elapsed := time.Since(startTime).Nanoseconds() / int64(time.Millisecond)
 	hs.CostTime = elapsed
 	if hs.IsEchoReq || hs.isDebug || hs.c.Debug {

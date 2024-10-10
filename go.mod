@@ -1,4 +1,4 @@
-module github.com/LBank-exchange/lbank-connector-go
+module github.com/domiwei/lbank-connector-go
 
 go 1.20
 
