@@ -125,7 +125,6 @@ func (hs *HttpService) DoHttpRequest(method, url, body string, kwargs ...KwArgs)
 	startTime := time.Now()
 	respObj, err := client.Do(hs.ReqObj)
 	hs.RespObj = respObj
-	hs.StatusCode = respObj.StatusCode
 	elapsed := time.Since(startTime).Nanoseconds() / int64(time.Millisecond)
 	hs.CostTime = elapsed
 	if hs.IsEchoReq || hs.isDebug || hs.c.Debug {
