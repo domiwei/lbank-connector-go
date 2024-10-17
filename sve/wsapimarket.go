@@ -47,16 +47,14 @@ type WsTradeData struct {
 	Ts     string `json:"TS"`
 }
 
-func (w *WsMarketService) Trade(pair string, errHandler ErrHandle) <-chan *WsTradeData {
+func (w *WsMarketService) Trade(pair string, errHandler ErrHandle) (<-chan *WsTradeData, error) {
 	conn, err := w.Ws.CreateWsConn()
 	if err != nil {
-		errHandler(err)
-		return nil
+		return nil, err
 	}
 	msg := []byte(`{"action":"subscribe","subscribe":"trade","pair":"` + pair + `"}`)
 	if err := w.Ws.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
-		errHandler(err)
-		return nil
+		return nil, err
 	}
 	dataCh := make(chan *WsTradeData, 1024)
 	go func() {
@@ -81,7 +79,7 @@ func (w *WsMarketService) Trade(pair string, errHandler ErrHandle) <-chan *WsTra
 			}
 		}
 	}()
-	return dataCh
+	return dataCh, nil
 }
 
 type WsPingPongData struct {
