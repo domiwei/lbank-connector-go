@@ -21,12 +21,9 @@ func (a *AccountService) UserInfo(data map[string]string) {
 }
 
 type GetKeyResp struct {
-	/*
-			{
-		    "key":"9301ef1ca6cafbef2df4a1430dc8b53879ea68c595a142eac311d8d590fbd60a"
-		  }
-	*/
-	Key string `json:"key"`
+	// {"msg":"Success","result":true,"data":"3df26b20373ad7e577e6d28c3c84f8b01b0746ab99e334304ac81ce2822e767f","error_code":0,"ts":1729191258781}
+	Data      string `json:"data"`
+	ErrorCode int    `json:"error_code"`
 }
 
 func (a *AccountService) SubscribeGetKey() (*GetKeyResp, error) {
@@ -38,7 +35,7 @@ func (a *AccountService) SubscribeGetKey() (*GetKeyResp, error) {
 
 type RefreshKeyResp struct {
 	// eg: {"result":"true"}
-	Result string `json:"result"`
+	Result bool `json:"result"`
 }
 
 func (a *AccountService) SubscribeRefreshKey(key string) (bool, error) {
@@ -51,7 +48,7 @@ func (a *AccountService) SubscribeRefreshKey(key string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return resp.Result == "true", nil
+	return resp.Result, nil
 }
 
 type DestroyKeyResp RefreshKeyResp
@@ -66,7 +63,7 @@ func (a *AccountService) SubscribeDestroyKey(key string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return resp.Result == "true", nil
+	return resp.Result, nil
 }
 
 func (a *AccountService) GetDepositAddress(data map[string]string) {
