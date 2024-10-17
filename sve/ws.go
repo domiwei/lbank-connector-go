@@ -1,7 +1,10 @@
 package sve
 
 import (
+	"encoding/json"
+	"log"
 	"net/url"
+	"strings"
 
 	"github.com/gorilla/websocket"
 )
@@ -12,22 +15,37 @@ type WsService struct {
 }
 
 /*
-func (w *WsService) KeepAlive(timeout time.Duration) {
-	ticker := time.NewTicker(timeout)
-	go func() {
-		defer ticker.Stop()
-		for {
-			pingMap := map[string]string{
-				"ping":   pkg.RandomUUID(),
-				"action": "ping",
+	func (w *WsService) KeepAlive(timeout time.Duration) {
+		ticker := time.NewTicker(timeout)
+		go func() {
+			defer ticker.Stop()
+			for {
+				pingMap := map[string]string{
+					"ping":   pkg.RandomUUID(),
+					"action": "ping",
+				}
+				msg, _ := json.Marshal(pingMap)
+				w.SendMsg(msg)
+				<-ticker.C
 			}
-			msg, _ := json.Marshal(pingMap)
-			w.SendMsg(msg)
-			<-ticker.C
-		}
-	}()
-}
+		}()
+	}
 */
+func (w *WsService) RespondServerPing(message []byte) {
+	var pingPongData WsPingPongData
+	if err := json.Unmarshal(message, &pingPongData); err != nil {
+		log.Printf("unmarshal ping pong data failed: %v. Data %v", err, string(message))
+		return
+	}
+	pong := map[string]string{
+		"pong":   pingPongData.Ping,
+		"action": "pong",
+	}
+	msg, _ := json.Marshal(pong)
+	if err := w.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
+		log.Printf("send pong failed: %v", err)
+	}
+}
 
 func (w *WsService) CreateWsConn() (*websocket.Conn, error) {
 	u := url.URL{Scheme: "wss", Host: "www.lbkex.net", Path: "/ws/V2/"}
@@ -66,3 +84,7 @@ func (w *WsService) ReceiveMsg() {
 	}
 }
 */
+
+func isPingPong(message []byte) bool {
+	return strings.Contains(string(message), "ping")
+}

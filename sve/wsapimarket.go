@@ -2,8 +2,6 @@ package sve
 
 import (
 	"encoding/json"
-	"log"
-	"strings"
 
 	"github.com/gorilla/websocket"
 )
@@ -47,7 +45,7 @@ type WsTradeData struct {
 	Ts     string `json:"TS"`
 }
 
-func (w *WsMarketService) Trade(pair string, errHandler ErrHandle) (<-chan *WsTradeData, error) {
+func (w *WsMarketService) SubscribeTrade(pair string, errHandler ErrHandle) (<-chan *WsTradeData, error) {
 	conn, err := w.Ws.CreateWsConn()
 	if err != nil {
 		return nil, err
@@ -66,7 +64,7 @@ func (w *WsMarketService) Trade(pair string, errHandler ErrHandle) (<-chan *WsTr
 				return
 			}
 			if isPingPong(message) {
-				w.keepAlive(message)
+				w.Ws.RespondServerPing(message)
 				continue
 			}
 			var tradeData WsTradeData
@@ -88,6 +86,7 @@ type WsPingPongData struct {
 	Ping   string `json:"ping"`
 }
 
+/*
 func (w *WsMarketService) keepAlive(message []byte) {
 	var pingPongData WsPingPongData
 	if err := json.Unmarshal(message, &pingPongData); err != nil {
@@ -103,7 +102,4 @@ func (w *WsMarketService) keepAlive(message []byte) {
 		log.Printf("send pong failed: %v", err)
 	}
 }
-
-func isPingPong(message []byte) bool {
-	return strings.Contains(string(message), "ping")
-}
+*/
