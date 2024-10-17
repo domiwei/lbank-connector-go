@@ -108,7 +108,7 @@ func (w *WsPrivateService) SubscribeOrderUpdate(pair string, errHandler ErrHandl
 			if data.Type == "orderUpdate" {
 				ch <- &data
 			}
-			if err := w.checkRefresh(subkey, &keyRefreshTime); err != nil {
+			if err := w.checkRefreshKey(subkey, &keyRefreshTime); err != nil {
 				errHandler(err)
 				return
 			}
@@ -117,7 +117,7 @@ func (w *WsPrivateService) SubscribeOrderUpdate(pair string, errHandler ErrHandl
 	return ch, nil
 }
 
-func (w *WsPrivateService) checkRefresh(subkey string, keyRefreshTime *time.Time) error {
+func (w *WsPrivateService) checkRefreshKey(subkey string, keyRefreshTime *time.Time) error {
 	if time.Since(*keyRefreshTime) > 15*time.Minute {
 		success, err := w.acc.SubscribeRefreshKey(subkey)
 		if err != nil {

@@ -45,3 +45,9 @@ func (wc *WsClient) NewWsMarketService() *WsMarketService {
 	ws := wc.NewWsService()
 	return &WsMarketService{ws}
 }
+
+func (wc *WsClient) NewWsPrivateService() *WsPrivateService {
+	ws := wc.NewWsService()
+	acc := NewClient(wc.ApiKey, wc.SecretKey).NewAccountService()
+	return &WsPrivateService{ws, acc}
+}
