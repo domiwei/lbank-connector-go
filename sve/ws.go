@@ -1,15 +1,9 @@
 package sve
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
 	"net/url"
-	"time"
 
 	"github.com/gorilla/websocket"
-
-	"github.com/domiwei/lbank-connector-go/pkg"
 )
 
 type WsService struct {
@@ -17,6 +11,7 @@ type WsService struct {
 	Wc   *WsClient
 }
 
+/*
 func (w *WsService) KeepAlive(timeout time.Duration) {
 	ticker := time.NewTicker(timeout)
 	go func() {
@@ -32,21 +27,20 @@ func (w *WsService) KeepAlive(timeout time.Duration) {
 		}
 	}()
 }
+*/
 
 func (w *WsService) CreateWsConn() (*websocket.Conn, error) {
 	u := url.URL{Scheme: "wss", Host: "www.lbkex.net", Path: "/ws/V2/"}
-	if w.Wc.Debug {
-		w.Wc.debug("CreateWsConn: %s", u.String())
-	}
 	dialer := websocket.DefaultDialer
 	conn, _, err := dialer.Dial(u.String(), nil)
 	if err != nil {
-		w.Wc.Logger.Fatal("dial:", err)
+		return nil, err
 	}
 	w.conn = conn
 	return conn, err
 }
 
+/*
 func (w *WsService) SendMsg(content []byte) {
 	err := w.conn.WriteMessage(websocket.TextMessage, content)
 	if err != nil {
@@ -71,3 +65,4 @@ func (w *WsService) ReceiveMsg() {
 		fmt.Printf("Received: %s", message)
 	}
 }
+*/
